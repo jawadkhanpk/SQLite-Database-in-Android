@@ -63,7 +63,7 @@
         app:layout_constraintTop_toTopOf="@+id/idBtnAdd" />
 
     <ListView
-        android:id="@+id/idListVIew"
+        android:id="@+id/idListViewCustomerList"
         android:layout_width="0dp"
         android:layout_height="448dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -34,8 +34,15 @@ public class MainActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "add working", Toast.LENGTH_SHORT).show();
-            }
+                try {
+                    CustomerModel customerModel = new CustomerModel(-1,etCustomerName.getText().toString(),Integer.parseInt(etCustomerAge.getText().toString()),switchActiveCustomers.isChecked());
+                    Toast.makeText(MainActivity.this,  customerModel.toString(), Toast.LENGTH_SHORT).show();
+
+                }
+                catch(Exception e) {
+                    Toast.makeText(MainActivity.this, "Error! Creating Customer..", Toast.LENGTH_SHORT).show();
+                }
+                }
         });
 
         btnViewAll.setOnClickListener(new View.OnClickListener() {

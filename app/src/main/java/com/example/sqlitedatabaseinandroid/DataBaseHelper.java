@@ -1,5 +1,6 @@
 package com.example.sqlitedatabaseinandroid;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -31,5 +32,24 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
+    }
+
+    public  boolean addOne(CustomerModel customerModel){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+
+        cv.put(COLUMN_CUSTOMER_NAME, customerModel.getName());
+        cv.put(COLUMN_CUSTOMER_AGE, customerModel.getAge());
+        cv.put(COLUMN_ACTIVE_CUSTOMER, customerModel.isActive());
+
+        long insert = db.insert(CUSTOMER_TABLE, null,cv);
+
+       if (insert == -1){
+           return false;
+       }else {
+           return true;
+       }
     }
 }

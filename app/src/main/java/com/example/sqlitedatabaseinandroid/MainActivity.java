@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -72,6 +73,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 //                Toast.makeText(MainActivity.this, everyone.toString(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        listViewCustomerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                CustomerModel clickedCustomer = (CustomerModel) adapterView.getItemAtPosition(i);
+
+                dataBaseHelper.deleteOne(clickedCustomer);
+
+                ShowCustomersOnListView(dataBaseHelper);
+                Toast.makeText(MainActivity.this, "Deleted "+clickedCustomer, Toast.LENGTH_SHORT).show();
 
             }
         });

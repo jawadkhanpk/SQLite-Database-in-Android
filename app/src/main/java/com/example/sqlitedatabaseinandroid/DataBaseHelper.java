@@ -2,8 +2,12 @@ package com.example.sqlitedatabaseinandroid;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.Nullable;
 
@@ -51,5 +55,33 @@ public class DataBaseHelper extends SQLiteOpenHelper {
        }else {
            return true;
        }
+    }
+
+    public List<CustomerModel> getEveryone(){
+    List<CustomerModel> returnList = new ArrayList<>();
+    String queryString = "SELECT * FROM " + CUSTOMER_TABLE;
+    SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString,null);
+        if (cursor.moveToFirst()){
+            // loop thorugh the cursor (result set) and create new customer object. Put them into return  list.
+            do {
+                int customerID = cursor.getInt(0);
+                String customerName = cursor.getString(1);
+                int customerAge = cursor.getInt(2);
+                boolean customerActive = cursor.getInt(3) ==  1 ? true: false;
+                CustomerModel newCustomer = new CustomerModel(customerID,customerName,customerAge,customerActive);
+                returnList.add(newCustomer);
+            }while (cursor.moveToNext());
+
+        }else {
+//                failure case.  do not adds anything to the list
+        }
+
+        // close both the cursor and database db when done.
+
+        cursor.close();
+        db.close();
+
+        return returnList;
     }
 }
